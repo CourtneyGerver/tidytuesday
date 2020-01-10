@@ -74,7 +74,7 @@ p <- ggplot(averages,
    labs(x = "Year", y = "Temperature (°C)") +
    ggtitle("Temperature in Australian Cities Over Time") +
    theme(plot.title=element_text(hjust = .5, color = "black",size=16,face="bold")) +
-   scale_color_manual(values = c("salmon", "darkgoldenrod1","plum3","deepskyblue","darkseagreen1"), 
+   scale_color_manual(values = c("salmon", "darkgoldenrod1","plum3","deepskyblue","darkseagreen2"), 
                       labels=c("Brisbane","Canberra","Melbourne","Perth","Sydney"), name = "City Name")+
    scale_x_continuous(breaks = c(1965,1975,1985,1995,2005,2015)) 
 p
@@ -94,7 +94,7 @@ q <- ggplot(averages,
    labs(x = "Year", y = "Rainfall (inches)") +
    ggtitle("Rainfall in Australian Cities Over Time") +
    theme(plot.title=element_text(hjust = .5, color = "black",size=16,face="bold")) +
-   scale_color_manual(values = c("salmon", "darkgoldenrod1","plum3","deepskyblue","darkseagreen1"), 
+   scale_color_manual(values = c("salmon", "darkgoldenrod1","plum3","deepskyblue","darkseagreen2"), 
                       labels=c("Brisbane","Canberra","Melbourne","Perth","Sydney"), name = "City Name")+
    scale_x_continuous(breaks = c(1965,1975,1985,1995,2005,2015)) 
 q
