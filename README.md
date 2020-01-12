@@ -1,5 +1,5 @@
 # tidytuesday
-My contributions to the #TidyTuesday project.
+My contribution to the #TidyTuesday project.
 
 **Week 2 - Australian Fires**
 
