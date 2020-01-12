@@ -1,0 +1,67 @@
+"0","```r
+library(kableExtra)
+#Cong Target vs. Incong Target ERS YA Stats
+options(scipen=999)
+dataYATargetERS$Condition<-as.factor(dataYATargetERS$Condition)
+
+### Estimate 1 = cong, Estimate 2 = incong
+dataYATargetERStbl<-dataYATargetERS %>% 
+  group_by(ROI) %>% 
+  do(tidy(t.test(dissimCorr~Condition, data=.))) %>%                                   
+  mutate_if(is.numeric, ~round(., 3)) %>% #Round variables to the fourth decimal, and
+  select(1,3:6,8:10) 
+
+#Manually rename columns for ease of readability
+names(dataYATargetERStbl)[2] <- \"dissimCorrCongAvg\"
+names(dataYATargetERStbl)[3] <- \"dissimCorrIncongAvg\"
+names(dataYATargetERStbl)[4] <- \"t-stat\"
+
+#Display table
+color.me <- which(dataYATargetERStbl$p.value <= .05)
+kable(dataYATargetERStbl) %>%
+  kable_styling(bootstrap_options = \"striped\", full_width = F) %>% 
+  kable_styling() %>%
+  row_spec(color.me, bold = T, color = \"black\", background = \"skyblue\")
+
+#Cong vs. Incong ERS YA Plot
+dataYATargetERS %>%
+  ggplot(aes(x = ROI, y = dissimCorr, fill = Condition)) +
+  stat_summary(geom = \"bar\", fun.y = mean, position=position_dodge(.9)) +
+  stat_summary(geom = \"errorbar\", fun.data = mean_se, position=position_dodge(0.9), 
+               width = .5) + theme_classic() +
+  ggtitle(\"YA Cong Target v Incong Target\n Encoding-Retrieval Dissimilarity\") +
+  ylab(\"Correlation (Dissimilarity)\") + #xlab(\" \")  +
+  theme(axis.text.x=element_text(hjust = .5, color = \"black\",size=16,face=\"bold\", 
+                                 family = \"Times New Roman\"),
+        axis.text.y=element_text(color = \"black\",size=16,face=\"bold\",family = \"Times New Roman\"),
+        axis.title=element_text(color = \"black\",size=16,face=\"bold\",family = \"Times New Roman\"), 
+        plot.title = element_text(color = \"black\",size=20, face = \"bold\", 
+                                  hjust = 0.5,family = \"Times New Roman\"),
+        legend.title=element_text(size=16, face=\"bold\",family = \"Times New Roman\"), 
+        legend.text=element_text(size=16,family = \"Times New Roman\")) +
+  scale_fill_manual(values = c(\"skyblue\", \"lightgreen\"), labels=c(\"Cong\",\"Incong\"), name = \"Condition\") 
+
+# #For student's t-test
+# dataYATargetERSnorm <- datMeltTargetERS[grep(\"y\", datMeltTargetERS$subjectid), ]
+# wideERSYA<-reshape(dataYATargetERSnorm, idvar = c(\"subjectid\",\"AgeGroup\",\"ROI\"), 
+#               timevar = c(\"Condition\"), direction = \"wide\")
+# 
+# #Get average per ROI 
+# wideERSYA %>%                                                #Create table named OAretMVPARTcov
+#   group_by(ROI) %>%                                                #Within each ROI,
+#   summarise(meanDissimCorrCong = mean(dissimCorr.cong),
+#             meanDissimCorrIncong = mean(dissimCorr.incong))
+# 
+# #Test whether there is a difference between cong vs incong 
+# wideERSYA %>% 
+#   group_by(ROI) %>% 
+#   do(tidy(t.test(.$dissimCorr.cong, 
+#             $dissimCorr.incong, 
+#                  mu = 0, 
+#                  alt = \"two.sided\", 
+#                  paired = TRUE, 
+#                  conf.level = 0.95))) %>%                              #Turn list to column,
+#   mutate_if(is.numeric, ~round(., 3)) %>%           #Round variables to the fourth decimal, and
+#   select(1,3:9)                                  
+
+```"

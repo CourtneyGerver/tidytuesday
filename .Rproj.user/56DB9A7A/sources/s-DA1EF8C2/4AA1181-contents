@@ -1,0 +1,84 @@
+
+# Load Packages -----------------------------------------------------------
+library(pacman)
+pacman::p_load("multilevel","dplyr","ggplot2","multilevel","lme4","psych","rowr","reshape2","lubridate","xaringan","lattice")
+
+# Data Visualization ------------------------------------------------------
+#Preview Rmd output in viewer
+xaringan:::inf_mr()
+
+#Line graph
+ggplot(univbct2, aes(x = as.factor(TIME), y = AvgCOMMIT, group = as.factor(GENDER),colour = as.factor(GENDER))) + 
+  geom_line() + geom_point() + xlab("Time") + ylab("Average Commitment") + ylim(2.9,3.78) +
+  ggtitle("H3& H4: Average Soldier Commitment Over Time By Gender") +
+  theme(plot.title = element_text(size = 12, face = "bold", hjust = 0.5)) + 
+  geom_errorbar(aes(ymin=AvgCOMMIT-se, ymax=AvgCOMMIT+se, width = .2)) + 
+  scale_color_manual(name="Gender",labels=c("Male","Female"),values=c("red","blue"))
+
+#Rename column names
+names(df)[1] <- "new name for first column"
+
+# Data Management ---------------------------------------------------------
+#Merge data frames
+names<-c("ID","Session") #Step 1, create the names of the columns you want
+merge2<-merge(sess1, sess2,by = c(names), all = TRUE) #Step 2, merge the two data frames (sess1 and sess2) by the column names you specified above
+
+#Subset data frame by specific columns 
+subsetDF <- schoolsDat[c(2:5)]
+
+#Subset data frame by specific rows
+graph <- disp[disp$Condition %in% c("CongRec","IncongRec","CongFARec","IncongFARec"), ]
+
+#Subset data frame by a particular value in a row
+schoolsDatT1 <- schoolsDat[schoolsDat$time == 0,] 
+
+#melt dataframe for plotting
+meltedDF <- melt(subsetDF, id.vars = c("student","time"))
+
+#Remove unwanted rows
+RTavg <- RTavg[-c(55), ]
+
+#Remove unwanted variables
+Age<-Age [(!(Age$Visit=="V3") & !(Age$Visit=="V4") & !(Age$Visit=="V5")),]
+dat<-filter(dat,ROIs != "PFC_Kim") 
+
+# Statistics --------------------------------------------------------------
+#Average number of trials per group
+grplngth <- ambdat %>%                    #grplength = new dataframe ; ambdat = old dataframe
+  group_by(ID) %>%                        #grouping variable
+  summarise(grplngth= length(SessWStudy)) #grplength = column name, counts amount of rows for SessWStudy per ID
+
+#Run MLM model
+OSPANss13.ICC2=(lme(OSpan.TotalPerSession~1,random=~1|ID,data=merge13,na.action=na.omit)) #~1 = fixed effects, =~1 = random effects
+VarCorr(OSPANss13.ICC2) 
+OSpanICCs13<-(.475)/(.475+1.218/13); OSpanICCs13
+
+#Standard error calculation
+library("sciplot")
+se<-se(univbct$COMMIT)
+#OR
+se <- function(x) sqrt(var(x)/length(x))
+se()
+
+# Miscellaneous -----------------------------------------------------------
+
+#Reformats highlighted selection: cmnd/ctrl + shift + A
+#Adds/ removes a # at the beginning of the line: cmnd/ctrl + shift + C
+#Duplicates present line of code and pastes it directly below: cmnd/ctrl + shift + D
+#Find in file directory: cmnd/ctrl + shift + F
+#Opens find/ replace bar: cmnd/ctrl + shift + J 
+#Compile .Rmd file: cmnd/ctrl + shift + K
+#Highlights entire line: cmnd/ctrl + shift + L
+#Create pipeline operator (%>%): cmnd/ctrl + shift + M
+#Opens new R script: cmnd/ctrl + shift + N
+#Open/ close clickable section headers in R script: cmnd/ctrl + shift + O
+#Insert section labels: cmnd/ctrl + shift + R
+#Source .Rmd file: cmnd/ctrl + shift + S
+#Close all files presently open: cmnd/ctrl + shift + W
+#Restart RStudio: cmnd/ctrl + shift + 0
+
+#Read in CSV
+ambdat<-read.csv("/Users/courtneygray/Box Sync/Courtney's Files/Second Year Stuff/ambREL/ambREL_All_Data2.csv", 
+                 header=TRUE, sep = ",", stringsAsFactors = FALSE)
+options(scipen=999) #Get rid of scientific notation
+

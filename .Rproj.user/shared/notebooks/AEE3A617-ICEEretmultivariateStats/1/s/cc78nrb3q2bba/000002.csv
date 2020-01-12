@@ -1,0 +1,12 @@
+"0","```r
+datMelt$ROI<-ifelse(datMelt$ROI == \"reslice_HC_bilat_Accuracy\", \"HC\",
+                 ifelse(datMelt$ROI == \"reslice_InfOcc_bilat_Accuracy\", \"IOC\",
+                        ifelse(datMelt$ROI == \"reslice_MidOcc_bilat_Accuracy\", \"MOC\",
+                               ifelse(datMelt$ROI == \"reslice_PFC_InfFront-Presupp_bilat_Accuracy\", \"PFC_Kim\",
+                                      ifelse(datMelt$ROI == \"reslice_PFC_InfMedMidFront_bilat_Accuracy\", \"PFC\",
+                                             ifelse(datMelt$ROI == \"reslice_PhG_bilat_Accuracy\", \"PHC\",\"PrC\"))))))
+
+```"
+"1","Error in ifelse(datMelt$ROI == \"reslice_HC_bilat_Accuracy\", \"HC\", ifelse(datMelt$ROI ==  : 
+  object 'datMelt' not found
+"
