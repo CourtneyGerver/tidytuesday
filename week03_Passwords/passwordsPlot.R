@@ -17,6 +17,7 @@ passwords$revRank <- 500-passwords$rank
 
 # Summarise data ------------------------------------------------------------------------------
 
+#Get count of category appearance
 passwords %>%                      
    group_by(category) %>%                                 
    count()
@@ -43,4 +44,4 @@ passPlot <- passPlot + transition_time(revRank) +
    shadow_mark(alpha = 0.4, size = 0.6)
 
 #Save out gif
-animate(passPlot, nframes = 150, renderer = gifski_renderer("passRanks.gif", loop = F))
+animate(passPlot, nframes = 150, renderer = gifski_renderer("passRanks.gif"))
