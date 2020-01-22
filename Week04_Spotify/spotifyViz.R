@@ -47,7 +47,7 @@ songPlot<- ggplot(spotifyMelt, aes(x=year,y = value, colour = audioFeature)) +
       legend.title = element_text(color = "white", size = 16)) +
    scale_x_continuous(breaks = pretty(spotifyMelt$year, n = 10)) + 
    scale_color_manual(values=c("#FF0076","#FF6B58","#9239F6"))+
-   guides(color=guide_legend(title="Song Feature")) 
+   guides(color=guide_legend(title="Feature")) 
 
 #Save out .png
 png(filename="songPlot.png", width = 800, height = 600)
