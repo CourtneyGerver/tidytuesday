@@ -15,7 +15,7 @@ NFL2019$margin_positivity<-ifelse(NFL2019$margin_of_victory <= 0, "Negative","Po
 library(ggplot2)
 ggplot(NFL2019, aes(x=reorder(team_name,margin_of_victory), y=margin_of_victory, label=margin_of_victory)) + 
    geom_bar(stat='identity', aes(fill=margin_positivity), color = "black")  +
-   labs(title = "2019 NFL MARGIN OF VICTORY", x="TEAM", y="MARGIN OF VICTORY") +
+   labs(title = "2019 NFL MARGIN OF VICTORY", x="TEAM", y="AVERAGE MARGIN OF VICTORY") +
    coord_flip() + theme_bw() +
    theme(plot.title=element_text(hjust = .5, color = "black",size=18,face="bold", family = "Freshman"),
          axis.text.x=element_text(hjust = 1, color = "black",face="bold",size=12, family = "DIN Alternate Bold"),
