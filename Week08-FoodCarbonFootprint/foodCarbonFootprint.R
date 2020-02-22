@@ -30,17 +30,15 @@ worldBeef<-filter(worldBeef,geounit != "Antarctica")
 # Plot ----------------------------------------------------------------------------------------
 
 beefPlot <- ggplot(data = worldBeef) +
-   geom_sf(aes(fill=co2_emmission)) +
-   scale_fill_viridis_c("Emissions \n (Kg CO2/person/yr)", direction = -1) +
+   geom_sf(aes(fill=co2_emmission), colour = NA) +
+   scale_fill_viridis_c("Emissions \n(Kg CO2/person/yr)", direction = -1) +
    theme_minimal() +
-   theme(plot.title=element_text(hjust = .5, color = "black",face="bold",size=18),
-         axis.text.x=element_text(color = "black",face="bold",size=14),
-         axis.title.x=element_text(hjust = .5, color = "black",face="bold",size=16),
-         axis.text.y=element_text(color = "black",face="bold",size=14),
-         axis.title.y=element_text(hjust = .5, color = "black",face="bold",size=16)) + 
+   theme(plot.title=element_text(hjust = .5, color = "black",face="bold",size=13),
+         axis.text.x=element_text(hjust = .5, color = "black",face="bold",size=10),
+         legend.title=element_text(size=10)) + 
    labs(title = (''~CO[2]~' emissions from beef consumption')) 
 
 #Save out plot
-png('beefPlot.png', width=7, height=6, units = 'in',res=150)
+png('beefPlot.png', width=6, height=3, units = 'in',res=150)
 beefPlot 
 dev.off()
