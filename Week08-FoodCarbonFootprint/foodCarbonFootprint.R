@@ -15,6 +15,12 @@ food_consumption %>%
    summarise(mean = mean(co2_emmission), n = n()) 
 ##Beef, no surprise there
 
+#What country has the most CO2 emissions for beef?
+food_consumption %>% 
+   filter(food_category == "Beef") %>%  
+   arrange(desc(co2_emmission)) 
+##Argentina
+
 #Get world variable
 world <- ne_countries(scale = "medium", returnclass = "sf") 
 
