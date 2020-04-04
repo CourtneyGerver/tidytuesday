@@ -33,7 +33,7 @@ library(usmap)
 
 #Plot bottles and cans
 a<-plot_usmap(data = bottlesCans, values = "n") + 
-   scale_fill_continuous(low = "tan", high = "salmon4", 
+   scale_fill_continuous(low = "orange2", high = "orange4", 
                          name = "", 
                          label = scales::comma) +
    ggtitle("Bottles and Cans") +
@@ -46,7 +46,7 @@ a<-plot_usmap(data = bottlesCans, values = "n") +
 
 #Plot kegs and barrels
 b<-plot_usmap(data = kegsBarrels, values = "n") + 
-   scale_fill_continuous(low = "tan", high = "salmon4", 
+   scale_fill_continuous(low = "orange1", high = "orange3", 
                          name = "", 
                          label = scales::comma) +
    ggtitle("Kegs and Barrels") +
@@ -60,7 +60,7 @@ b<-plot_usmap(data = kegsBarrels, values = "n") +
 
 #Plot on premise production
 c<-plot_usmap(data = onPremise, values = "n") + 
-   scale_fill_continuous(low = "tan", high = "salmon4", 
+   scale_fill_continuous(low = "gold", high = "orange2", 
                          name = "", 
                          label = scales::comma) +
    ggtitle("On Premises") +
@@ -79,8 +79,7 @@ figure <- ggarrange(a, b, c,
 beerPlot <-annotate_figure(figure,
                 top = text_grob("\n\n\n\nNumber of Beer Barrels Produced For Intended Use (2008-2019)", color = "Black", face = "bold", size = 18),
                 bottom = text_grob("Note: 1 barrel of beer = 31 gallons  \n", color = "black",
-                                   hjust = 1, x = 1, face = "italic", size = 12))
-beerPlot
+                                   hjust = 1, x = 1, face = "italic", size = 12)); beerPlot
 
 #Save out plot
 png('Week14-Beer/beerPlot.png',width=17, height=12, units = 'in',res=150)
