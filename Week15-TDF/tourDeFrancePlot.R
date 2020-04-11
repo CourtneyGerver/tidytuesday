@@ -35,7 +35,7 @@ TDFplot<-ggplot(tdfTidy, aes(x=as.numeric(newStage), y = Distance, fill = as.num
    scale_x_reverse() +
    guides(color = FALSE, fill = FALSE) +
    theme_bw() +
-   labs(title = "25 Years of Tour de France\nWinning Distance By Stage",
+   labs(title = "25 Years of Tour de France Distance By Stage",
         subtitle='Year: {closest_state}', x = "Stage", y = "Distance (Km)") +
    theme(plot.title = element_text(hjust = .5, size = 18, face = "bold"),
          plot.subtitle = element_text(hjust = .5, size = 16),
