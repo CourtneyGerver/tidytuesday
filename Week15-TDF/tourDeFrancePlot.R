@@ -28,11 +28,13 @@ library(gganimate)
 library(gapminder)
 
 #Plot
-TDFplot<-ggplot(tdfTidy, aes(x=as.numeric(newStage), y = Distance, fill = as.numeric(newStage))) + 
+TDFplot<-ggplot(tdfTidy, aes(x=as.numeric(newStage), y = Distance, fill = as.numeric(newStage),
+                             label = paste("Destination:", Destination), nsmall = 2)) + 
    geom_bar(stat='identity') +
    coord_flip(clip = "off", expand = FALSE) + 
    scale_fill_continuous(trans = 'reverse') +
    scale_x_reverse() +
+   geom_text(aes(y=0,label = Destination,hjust=0), color = "lightgray") +
    guides(color = FALSE, fill = FALSE) +
    theme_bw() +
    labs(title = "25 Years of Tour de France Distance By Stage",
@@ -43,7 +45,7 @@ TDFplot<-ggplot(tdfTidy, aes(x=as.numeric(newStage), y = Distance, fill = as.num
          axis.title.x = element_text(size = 16, face = "bold", color = "black"),
          axis.text.y = element_text(size = 16, face = "bold", color = "black"),
          axis.title.y = element_text(size = 16, face = "bold", color = "black"))+
-   transition_states(Year, transition_length = 2, state_length = 1) +
+   transition_states(Year, transition_length = 3, state_length = 1) +
    enter_grow() +
    exit_shrink() +
    ease_aes('sine-in-out')
