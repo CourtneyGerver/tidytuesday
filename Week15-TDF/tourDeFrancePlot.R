@@ -49,5 +49,5 @@ TDFplot<-ggplot(tdfTidy, aes(x=as.numeric(newStage), y = Distance, fill = as.num
    ease_aes('sine-in-out')
 TDFplot
 
-#Save out gif
+#Save out gif 
 animate(TDFplot, nframes = 100, renderer = gifski_renderer("TDFplot.gif"))
