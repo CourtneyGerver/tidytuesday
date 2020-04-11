@@ -28,8 +28,7 @@ library(gganimate)
 library(gapminder)
 
 #Plot
-TDFplot<-ggplot(tdfTidy, aes(x=as.numeric(newStage), y = Distance, fill = as.numeric(newStage),
-                             label = paste("Destination:", Destination), nsmall = 2)) + 
+TDFplot<-ggplot(tdfTidy, aes(x=as.numeric(newStage), y = Distance, fill = as.numeric(newStage))) + 
    geom_bar(stat='identity') +
    coord_flip(clip = "off", expand = FALSE) + 
    scale_fill_continuous(trans = 'reverse') +
