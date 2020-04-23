@@ -5,6 +5,7 @@ gdpr_violations <- readr::read_tsv('https://raw.githubusercontent.com/rfordatasc
 
 # Prepare data for plot -----------------------------------------------------------------------
 
+#Rank fines and extract top 20
 library(tidyverse)
 gdpr_violations$price<-as.numeric(gdpr_violations$price)
 gdprTop20<-gdpr_violations %>%
@@ -13,10 +14,12 @@ gdprTop20<-gdpr_violations %>%
 
 # Plot ----------------------------------------------------------------------------------------
 
-text_color = "black"
-
+#Read in libraries
 library(scales)
 library(viridis)
+
+#Plot
+text_color = "black"
 GDPRfines<-ggplot(gdprTop20, aes(x=name, y=price, color = price)) + 
    geom_point(aes(size=price)) +
    scale_y_continuous(labels = comma) + 
@@ -30,7 +33,9 @@ GDPRfines<-ggplot(gdprTop20, aes(x=name, y=price, color = price)) +
          plot.subtitle = element_text(hjust = .5, size = 20, color = text_color), 
          legend.position = "none",
          axis.title = element_text(color = text_color),
-         axis.text.x = element_text(color = text_color, vjust = 5)) 
+         axis.text.x = element_text(color = text_color, vjust = 1)) +
+   geom_text(aes(label = controller), hjust = 0, vjust = 1, color = text_color, check_overlap = TRUE)
+GDPRfines
 
 #Save out plot
 png('Week17-GDPRfines/GDPRfines.png',width=15, height=12, units = 'in',res=150)
